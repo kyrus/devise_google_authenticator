@@ -6,6 +6,8 @@ class Devise::CheckgaController < Devise::SessionsController
   prepend_before_filter :require_no_authentication, :only => [:show, :update]
   before_filter :set_gauth_tmp
 
+  respond_to :html, :json
+
   def show
     if @gauth_tmp.nil?
       redirect_to :root
