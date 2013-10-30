@@ -19,11 +19,13 @@ module DeviseGoogleAuthenticator::Patches
 
         # Resource has G2FA enabled
         if gauth_required?(resource)
+          return_to = session["#{scope}_return_to".to_sym]
           # Log the user out
           warden.logout
 
           # Assign a temporary key and fetch it
           session[:gauth_tmp] = resource.assign_gauth_tmp
+          session["#{scope}_return_to".to_sym] = return_to
 
           # Redirect to GA controller to request the token
           respond_with resource, :location => send("#{scope}_checkga_url")
