@@ -3,6 +3,7 @@ require 'digest/sha2'
 class Devise::CheckgaController < Devise::SessionsController
   include Devise::Controllers::Helpers
 
+  prepend_before_filter :devise_resource, :only => [:show]
   prepend_before_filter :require_no_authentication, :only => [:show, :update]
   before_filter :set_gauth_tmp
 
@@ -56,5 +57,9 @@ class Devise::CheckgaController < Devise::SessionsController
       value: remember_value.to_s,
       expires: Devise.remember_gauth_for.from_now
     }
+  end
+
+  def devise_resource
+    self.resource = resource_class.new
   end
 end
