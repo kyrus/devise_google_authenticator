@@ -12,7 +12,7 @@ module Devise # :nodoc:
 
       module ClassMethods # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
-          find(:first, :conditions => {:gauth_tmp => gauth_tmp})
+          find_by(gauth_tmp: gauth_tmp)
         end
 
         ::Devise::Models.config(self, :ga_timeout, :ga_timedrift)
