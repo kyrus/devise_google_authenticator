@@ -38,7 +38,7 @@ class Devise::CheckgaController < Devise::SessionsController
     # Display error if Gauth token authentication fails
     else
       flash[:alert] = I18n.t('token_invalid', {:scope => 'devise'})
-      render :show
+      render :show, locals: {resource: resource}
     end
   end
 
